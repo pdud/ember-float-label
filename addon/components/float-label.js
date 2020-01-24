@@ -1,8 +1,7 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { oneWay, bool } from '@ember/object/computed';
 
-var { bool, oneWay } = Ember.computed;
-
-export default Ember.Component.extend({
+export default Component.extend({
   tagName: 'label',
   classNames: ['float-label'],
   classNameBindings: ['hasValue'],
