@@ -1,3 +1,4 @@
+/* eslint-disable ember/no-new-mixins */
 import Mixin from '@ember/object/mixin';
 import { on } from '@ember/object/evented';
 import { scheduleOnce } from '@ember/runloop';
@@ -7,9 +8,11 @@ export default Mixin.create({
   _registerWithFloatLabel: on('init', function() {
     var parent = this.get('parentView');
     if (parent instanceof FloatLabel) {
-      scheduleOnce('afterRender', () => {
-        parent.send('register', this);
-      });
+      scheduleOnce('afterRender', this, this._registerRegistrableWithFloatLabel);
     }
-  })
+  }),
+
+  _registerRegistrableWithFloatLabel() {
+    this.get('parentView').send('register', this);
+  }
 });

@@ -1,69 +1,72 @@
-import { moduleForComponent, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupRenderingTest } from 'ember-qunit';
+import { render, find, fillIn } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 import FloatLabelInitializer from 'dummy/initializers/float-label';
 
-moduleForComponent('float-label', 'Integration | Component | float label', {
-  integration: true,
-  beforeEach() {
+module('Integration | Component | float label', function(hooks) {
+  setupRenderingTest(hooks);
+
+  hooks.beforeEach(function() {
     FloatLabelInitializer.initialize();
-  }
-});
+  });
 
-test('ember input', function(assert) {
-  assert.expect(4);
+  test('ember input', async function(assert) {
+    assert.expect(4);
 
-  this.render(hbs`
-    {{#float-label}}
-      {{input type="text" value=name placeholder="Name"}}
-    {{/float-label}}
-  `);
+    await render(hbs`
+      <FloatLabel>
+        {{input value=name placeholder="Name"}}
+      </FloatLabel>
+    `);
 
-  assert.equal(this.$('.float-label-text').text().trim(), 'Name', 'the placeholder is added in a span');
-  assert.ok(!this.$('label').hasClass('has-value'), 'the float-label has no class has-value');
+    assert.equal(find('.float-label-text').textContent.trim(), 'Name', 'the placeholder is added in a span');
+    assert.ok(!find('label').classList.contains('has-value'), 'the float-label has no class has-value');
 
-  this.$('input').val('Harry Kane').trigger('change');
-  assert.ok(this.$('label').hasClass('has-value'), 'the float-label has the class has-value');
+    await fillIn('input', 'Harry Kane');
+    assert.ok(find('label').classList.contains('has-value'), 'the float-label has the class has-value');
 
-  this.$('input').val('').trigger('change');
-  assert.ok(!this.$('label').hasClass('has-value'), 'the float-label has no class has-value when the input is emptied');
-});
+    await fillIn('input', '');
+    assert.ok(!find('label').classList.contains('has-value'), 'the float-label has no class has-value when the input is emptied');
+  });
 
-test('ember textarea', function(assert) {
-  assert.expect(3);
+  test('ember textarea', async function(assert) {
+    assert.expect(3);
 
-  this.render(hbs`
-    {{#float-label}}
-      {{textarea value=notes placeholder="Notes"}}
-    {{/float-label}}
-  `);
+    await render(hbs`
+      <FloatLabel>
+        {{textarea value=notes placeholder="Notes"}}
+      </FloatLabel>
+    `);
 
-  assert.equal(this.$('.float-label-text').text().trim(), 'Notes', 'the placeholder is added in a span');
-  assert.ok(!this.$('label').hasClass('has-value'), 'the float-label has no class has-value');
+    assert.equal(find('.float-label-text').textContent.trim(), 'Notes', 'the placeholder is added in a span');
+    assert.ok(!find('label').classList.contains('has-value'), 'the float-label has no class has-value');
 
-  this.$('textarea').val('Harry Kane').trigger('change');
-  assert.ok(this.$('label').hasClass('has-value'), 'the float-label has the class has-value');
-});
+    await fillIn('textarea', 'Harry Kane');
+    assert.ok(find('label').classList.contains('has-value'), 'the float-label has the class has-value');
+  });
 
-test('render with value', function(assert) {
-  assert.expect(1);
+  test('render with value', async function(assert) {
+    assert.expect(1);
 
-  this.render(hbs`
-    {{#float-label}}
-      {{input type="text" value="Harry Kane" placeholder="Name"}}
-    {{/float-label}}
-  `);
+    await render(hbs`
+      <FloatLabel>
+        {{input value="Harry Kane" placeholder="Name"}}
+      </FloatLabel>
+    `);
 
-  assert.ok(this.$('label').hasClass('has-value'), 'the float-label has the class has-value');
-});
+    assert.ok(find('label').classList.contains('has-value'), 'the float-label has the class has-value');
+  });
 
-test('overwrite default label', function(assert) {
-  assert.expect(1);
+  test('overwrite default label', async function(assert) {
+    assert.expect(1);
 
-  this.render(hbs`
-    {{#float-label label="Full Name"}}
-      {{input type="text" value=name example="Harry Kane"}}
-    {{/float-label}}
-  `);
+    await render(hbs`
+      <FloatLabel @label="Full Name">
+        {{input value=name placeholder="Harry Kane"}}
+      </FloatLabel>
+    `);
 
-  assert.equal(this.$('.float-label-text').text().trim(), 'Full Name', 'the label attribute is added in a span');
+    assert.equal(find('.float-label-text').textContent.trim(), 'Full Name', 'the label attribute is added in a span');
+  });
 });

@@ -1,43 +1,58 @@
-# ember-float-label
+ember-float-label
+==============================================================================
 
 Animated float labels for your Ember app.
 
-## Installation
 
-```bash
-# From within your ember-cli project
-ember install:addon ember-float-label
+Compatibility
+------------------------------------------------------------------------------
+
+* Ember.js v3.8 or above
+* Ember CLI v2.13 or above
+* Node.js v8 or above
+
+
+Installation
+------------------------------------------------------------------------------
+
+```
+ember install ember-float-label
 ```
 
-## Usage
+Usage
+------------------------------------------------------------------------------
 
 In your template:
 
 ```hbs
-{{#float-label}}
-  {{input type='text' value=name placeholder='Name'}}
-{{/float-label}}
+<FloatLabel>
+  <Input @value={{this.name}} @placeholder="Name" />
+</FloatLabel>
 
-{{#float-label}}
-  {{textarea value=notes placeholder='Notes'}}
-{{/float-label}}
-
-{{#float-label}}
-  {{view 'select'
-         prompt='State'
-         content=stateOptions
-         optionValuePath='content.abbreviation'
-         optionLabelPath='content.name'
-         value=state}}
-{{/float-label}}
+<FloatLabel>
+  <Textarea @value={{this.notes}} @placeholder="Notes" />
+</FloatLabel>
 ```
 
-Note that `input` and `textarea` must have a `placeholder` while `select` must have a `prompt`. If you want the float label to be something different than the placeholder/prompt, you can specify it as follows:
+If you want the float label to be something different than the placeholder/prompt, you can specify it as follows:
 
 ```hbs
-{{#float-label label='Something Else'}}
-  {{input type='text' value=name placeholder='Name'}}
-{{/float-label}}
+<FloatLabel @label="Something Else" />
+  <Input @value={{this.name}} @placeholder="Name" />
+</FloatLabel>
 ```
 
 Styling is left completely up to you.
+=======
+
+
+Contributing
+------------------------------------------------------------------------------
+
+See the [Contributing](CONTRIBUTING.md) guide for details.
+
+
+License
+------------------------------------------------------------------------------
+
+This project is licensed under the [MIT License](LICENSE.md).

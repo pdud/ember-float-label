@@ -1,9 +1,9 @@
 <h2 id="title">Welcome to Ember</h2>
 
-{{#float-label}}
-  {{input type="text" value=name placeholder="Name"}}
-{{/float-label}}
+<FloatLabel>
+  <Input @type="text" @value={{this.name}} @placeholder="Name" />
+</FloatLabel>
 
-{{#float-label}}
-  {{textarea value=notes placeholder="Notes"}}
-{{/float-label}}
+<FloatLabel>
+  <Textarea @value={{this.notes}} @placeholder="Notes" />
+</FloatLabel>
