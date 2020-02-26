@@ -1,17 +1,17 @@
-import Ember from 'ember';
+import TextArea from '@ember/component/text-area';
+import TextField from '@ember/component/text-field';
+import { alias } from '@ember/object/computed';
 import Registrable from 'ember-float-label/mixins/registrable';
-
-const alias = Ember.computed.alias;
 
 export default {
   name: 'float-label',
 
   initialize: function() {
-    Ember.TextField.reopen(Registrable, {
+    TextField.reopen(Registrable, {
       floatLabel: alias('placeholder')
     });
 
-    Ember.TextArea.reopen(Registrable, {
+    TextArea.reopen(Registrable, {
       floatLabel: alias('placeholder')
     });
   }

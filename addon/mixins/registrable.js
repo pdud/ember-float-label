@@ -1,12 +1,9 @@
-import Ember from 'ember';
+import Mixin from '@ember/object/mixin';
+import { on } from '@ember/object/evented';
+import { scheduleOnce } from '@ember/runloop';
 import FloatLabel from 'ember-float-label/components/float-label';
 
-const {
-  on,
-  run: { scheduleOnce }
-} = Ember;
-
-export default Ember.Mixin.create({
+export default Mixin.create({
   _registerWithFloatLabel: on('init', function() {
     var parent = this.get('parentView');
     if (parent instanceof FloatLabel) {
